@@ -66,7 +66,6 @@ class UcasCourse(object):
     def get_course(self):
         # 获取课程开课学院的id，以及选课界面HTML
         html = self.jwxk_html
-        print(self.course)
         regular = r'<label for="id_([\S]+)">' + self.course[0][2] + r'</label>'
         institute_id = re.findall(regular, html)[0]
         
@@ -118,14 +117,15 @@ class UcasCourse(object):
                     exit(0)
                 else:
                     #self.sleep()
-                    pass
+                    self.course.pop(0)
             except NoLoginError:
                 self._init_session()
             except NotFoundCourseError:
-                print('尝试选择课程编号为 {} 的时候出错，可能编号错误或者已被选上'.format(self.course.pop(0)[0]))
+                print('课程未找到，如果编号没填错的话(复制粘贴应该不会错)，可能是如英语C等课程还没开放: {}'.format(self.course[0][0]))
+                self.sleep(5)
             except NotSelectCourseTime:
                 print('选课时间未到')
-                self.sleep(20)
+                self.sleep(5)
             except Exception as e:
                 print(e)
                 self.sleep()
