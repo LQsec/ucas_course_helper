@@ -66,8 +66,10 @@ class UcasCourse(object):
     def get_course(self):
         # 获取课程开课学院的id，以及选课界面HTML
         html = self.jwxk_html
-        regular = r'<label for="id_([\S]+)">' + self.course[0][0][:2] + r'-'
+        print(self.course)
+        regular = r'<label for="id_([\S]+)">' + self.course[0][2] + r'</label>'
         institute_id = re.findall(regular, html)[0]
+        
 
         url = 'http://jwxk.ucas.ac.cn' + \
               re.findall(r'<form id="regfrm2" name="regfrm2" action="([\S]+)" \S*class=', html)[0]
@@ -101,7 +103,7 @@ class UcasCourse(object):
             print(info)
             return None
 
-    def sleep(self, t=5):
+    def sleep(self, t=2):
         time.sleep(t)
 
     def start(self):
@@ -110,11 +112,13 @@ class UcasCourse(object):
                 res = self.select_course()
                 if res is not None:
                     print('课程编号为 {} 的选课成功'.format(res))
+                    exit(0)
                 elif not self.course:
                     print('全部选完')
                     exit(0)
                 else:
-                    self.sleep()
+                    #self.sleep()
+                    pass
             except NoLoginError:
                 self._init_session()
             except NotFoundCourseError:
