@@ -1,4 +1,6 @@
-username
-password
-091M4044H 0
-091M5002H 1
+lqers@mails.ucas.ac.cn
+123123
+050200MGB005H-44 1 外语系
+050200MGB005H-48 1 外语系
+050200MGB005H-50 1 外语系
+050200MGB005H-51 1 外语系
